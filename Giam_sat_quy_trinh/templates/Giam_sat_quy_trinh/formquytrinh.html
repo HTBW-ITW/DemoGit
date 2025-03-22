@@ -1,0 +1,201 @@
+{% extends 'Giam_sat_quy_trinh/master.html' %}
+{% block main_content %}
+{% load static%}
+<!-- Full Screen Search Start -->
+<div class="modal fade" id="searchModal" tabindex="-1">
+    <div class="modal-dialog modal-fullscreen">
+        <div class="modal-content" style="background: rgba(9, 30, 62, .7);">
+            <div class="modal-header border-0">
+                <button type="button" class="btn bg-white btn-close" data-bs-dismiss="modal"
+                    aria-label="Close"></button>
+            </div>
+            <div class="modal-body d-flex align-items-center justify-content-center">
+                <div class="input-group" style="max-width: 600px;">
+                    <input type="text" class="form-control bg-transparent border-primary p-3"
+                        placeholder="Type search keyword">
+                    <button class="btn btn-primary px-4"><i class="bi bi-search"></i></button>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+<!-- Full Screen Search End -->
+
+
+<!-- Hero Start -->
+<div class="container-fluid bg-primary py-5 hero-header mb-5">
+    <div class="row py-3">
+        <div class="col-12 text-center">
+            <h1 class="display-3 text-white animated zoomIn">Giám sát quy trình</h1>
+            <a href="{% url 'Giam_sat_quy_trinh:trang_chu'%}" class="h4 text-white">Trang chủ</a>
+            <i class="far fa-circle text-white px-2"></i>
+            <a href="{% url 'Giam_sat_quy_trinh:giam_sat_quy_trinh'%}" class="h4 text-white">Giám sát quy trình</a>
+            <i class="far fa-circle text-white px-2"></i>
+            <a href="" class="h4 text-white">{{tenquytrinh}}</a>
+        </div>
+    </div>
+</div>
+<!-- Hero End -->
+
+
+<!-- About Start -->
+{% comment %} <div class="container-fluid py-5 wow fadeInUp" data-wow-delay="0.1s">
+    <div class="container">
+        <div class="row g-5">
+            <div class="col-lg-7">
+                <div class="section-title mb-4">
+                    <h5 class="position-relative d-inline-block text-primary text-uppercase">About Us</h5>
+                    <h1 class="display-5 mb-0">The World's Best Dental Clinic That You Can Trust</h1>
+                </div>
+                <h4 class="text-body fst-italic mb-4">Diam dolor diam ipsum sit. Clita erat ipsum et lorem stet no lorem
+                    sit clita duo justo magna dolore</h4>
+                <p class="mb-4">Tempor erat elitr rebum at clita. Diam dolor diam ipsum et tempor sit. Aliqu diam amet
+                    diam et eos labore. Clita erat ipsum et lorem et sit, sed stet no labore lorem sit. Sanctus clita
+                    duo justo et tempor eirmod magna dolore erat amet</p>
+                <div class="row g-3">
+                    <div class="col-sm-6 wow zoomIn" data-wow-delay="0.3s">
+                        <h5 class="mb-3"><i class="fa fa-check-circle text-primary me-3"></i>Award Winning</h5>
+                        <h5 class="mb-3"><i class="fa fa-check-circle text-primary me-3"></i>Professional Staff</h5>
+                    </div>
+                    <div class="col-sm-6 wow zoomIn" data-wow-delay="0.6s">
+                        <h5 class="mb-3"><i class="fa fa-check-circle text-primary me-3"></i>24/7 Opened</h5>
+                        <h5 class="mb-3"><i class="fa fa-check-circle text-primary me-3"></i>Fair Prices</h5>
+                    </div>
+                </div>
+                <a href="appointment.html" class="btn btn-primary py-3 px-5 mt-4 wow zoomIn" data-wow-delay="0.6s">Make
+                    Appointment</a>
+            </div>
+            <div class="col-lg-5" style="min-height: 500px;">
+                <div class="position-relative h-100">
+                    <img class="position-absolute w-100 h-100 rounded wow zoomIn" data-wow-delay="0.9s"
+                        src="img/about.jpg" style="object-fit: cover;">
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+<!-- About End --> {% endcomment %}
+<section class="news-single section">
+    <div class="container">
+        <div class="row">
+            <div class="col-lg-12 col-12">
+                <div class="row">
+                    <div class="col-12">
+                        <div class="single-main">
+                            <form method='post' name="myform">
+                                {% csrf_token %}
+                                <div class='row'>
+                                    <div class="col-md-6">
+                                        <h6 class="alert alert-primary">Nhân viên giám sát:
+                                            {{request.session.s_nhan_vien.ten_nhan_vien}}</h6>
+                                    </div>
+                                    <div class="col-md-6">
+                                        <select style="font-family: Jost" class="alert alert-primary" name="NV_duoc_gs">
+                                            <option value="{{request.session.s_nhan_vien.id}}">
+                                                {{request.session.s_nhan_vien.ten_nhan_vien}}_{{request.session.s_nhan_vien.ma_nhan_vien}}
+                                            </option>
+                                            {% for nv in ds_nhan_vien%}
+                                            <option value="{{nv.id}}" required>{{nv.ten_nhan_vien}}_{{nv.ma_nhan_vien}}
+                                            </option>
+                                            {% endfor %}
+                                        </select>
+                                    </div>
+                                </div>
+                                <div class='row'>
+                                    <div class="col-md-12">
+                                        <h6 class="alert alert-primary"> {{tenquytrinh}}</h6>
+                                    </div>
+                                </div>
+                                <br>
+                                <div class="row">
+                                    {% for i in a %}
+                                    <div class="col-lg-12 col-md-9 col-9">
+                                        <div class="alert alert-success">
+                                            {{i.Ma_buoc_QT}} {{i.Noi_dung_buoc}}
+                                        </div>
+                                    </div>
+                                    <div style="text-indent: 50px;" class="col-lg-12 col-md-9 col-9">
+                                        <div class="form-check">
+                                            <input class="form-check-input" type="radio" name="{{i.Ma_buoc_QT}}"
+                                                value="Không thực hiện" checked>
+                                            <label class="form-check-label" for="{{i.id}}">
+                                                Không thực hiện
+                                            </label>
+                                        </div>
+                                        <div class="form-check">
+                                            <input class="form-check-input" type="radio" name="{{i.Ma_buoc_QT}}"
+                                                value="Thực hiện nhưng chưa đúng">
+                                            <label class="form-check-label" for="{{i.id}}">
+                                                Thực hiện nhưng chưa đúng
+                                            </label>
+                                        </div>
+                                        <div class="form-check">
+                                            <input class="form-check-input" type="radio" name="{{i.Ma_buoc_QT}}"
+                                                value="Thực hiện đúng nhưng chưa đủ">
+                                            <label class="form-check-label" for="{{i.id}}">
+                                                Thực hiện đúng nhưng chưa đủ
+                                            </label>
+                                        </div>
+                                        <div class="form-check">
+                                            <input class="form-check-input" type="radio" name="{{i.Ma_buoc_QT}}"
+                                                value="Thực hiện đúng, đủ">
+                                            <label class="form-check-label" for="{{i.id}}">
+                                                Thực hiện đúng, đủ
+                                            </label>
+                                        </div>
+                                    </div>
+                                    {% endfor %}
+                                    <div class="col-12">
+                                        <div class="form-group button">
+                                            <button type="button" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#staticBackdrop">
+                                                Gửi kết quả
+                                              </button>
+                                        </div>
+                                    </div>
+                                    <!-- data-dismiss="modal" -> Chặn phương thức POST dùng cho nút đóng, đi kèm type = button -->
+                                </div>
+                                <!-- Modal -->
+                                <div class="modal fade" id="staticBackdrop" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1" aria-labelledby="staticBackdropLabel" aria-hidden="true">
+                                    <div class="modal-dialog">
+                                    <div class="modal-content">
+                                        <div class="modal-header">
+                                        <h5 class="modal-title" id="staticBackdropLabel">Phiếu xác nhận</h5>
+                                        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                                        </div>
+                                        <div class="modal-body">
+                                        Kết quả giám sát sẽ được gửi đến phòng giám sát. Đồng thời gửi 1 bản pdf về email của bạn. Bạn có đồng ý gửi kết quả giám sát {{tenquytrinh}}.
+                                        </div>
+                                        <div class="modal-footer">
+                                        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Đóng</button>
+                                        <button type="submit" class="btn btn-primary">Gửi kết quả</button>
+                                        </div>
+                                    </div>
+                                    </div>
+                                </div>
+                            </form>
+
+                            {% comment %} {% if w == 1 %}
+                            <div class="alert alert-light" role="alert">
+                                <h5> Hiện tại có {{result}} quy trình đang được thực hiện giám sát </h5>
+                            </div>
+                            {% elif w == 0 %}
+                            {% if result == 0 %}
+                            <div class="alert alert-danger" role="alert">
+                                <h5>Không tìm thấy quy trình phù hợp với từ khoá "{{ keyword }}"</h5>
+                            </div>
+                            {% else %}
+                            <div class="alert alert-success" role="alert">
+                                <h5>Tìm thấy {{result}} quy trình phù hợp với từ khoá "{{ keyword }}"</h5>
+                            </div>
+                            {%endif%}
+                            {% endif %} {% endcomment %}
+
+
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+{% endblock %}

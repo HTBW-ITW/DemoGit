@@ -1,0 +1,6 @@
+from django.apps import AppConfig
+
+
+class HoSoBenhAnConfig(AppConfig):
+    default_auto_field = 'django.db.models.BigAutoField'
+    name = 'Ho_so_benh_an'

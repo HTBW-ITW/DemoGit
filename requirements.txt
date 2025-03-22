@@ -1,0 +1,11 @@
+django
+ipython
+django-CKeditor
+pillow
+bcrypt
+django[argon2]
+django-mathfilters
+pdfkit
+feedparser
+wfastcgi
+wkhtmltopdf

@@ -1,0 +1,31 @@
+{% extends 'Giam_sat_quy_trinh/master.html' %}
+{% block main_content %}
+{% load static%}
+<br>
+<div class="container">
+        <div class="login">
+                <form method="post">
+                    {% csrf_token %}
+                           
+                            {{ result|safe }}
+                            <div class="center-block">
+                                <img class="img-login-center" width = "10%" src={% static 'img/logo.jpg'%}>
+                            </div>
+                            <div class="input-login row">
+                                <input type="text" placeholder="Mã số nhân viên" aria-label="Mã số nhân viên" name="Ma_nhan_vien">
+                            </div>
+                            <div class="input-login row">
+                                <input type="password" placeholder="Mật khẩu" aria-label="Mật khẩu" name="mat_khau">
+                            </div>
+                            <div class="dang-nhap-div-btn">
+                            <button class="btn-dn" href "{% url 'Nhan_vien:dang_nhap'%}" name="login" data-testid="royal-login-button" type="submit">Đăng nhập</button>
+                            </div>
+                            <a style="margin-left:10px" href="#">Quên mật khẩu?</a>
+
+                </form>
+        </div>
+</div>
+<br>
+
+
+{% endblock %}
